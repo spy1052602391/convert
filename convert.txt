@@ -1,0 +1,47 @@
+class Solution {
+    public String convert(String s, int numRows) {
+        if(s.length() == 0){
+            return "";
+        }
+        if(numRows == 1){
+            return s;
+        }
+        char[] c = s.toCharArray();
+        int number = (c.length/(2*numRows-2)+1)*(numRows-1);
+        char[][] c2 = new char[numRows][number];
+        int i = 0;
+        int count = 0;
+        int num = 0;
+        int j = 0;
+        char[] c3 = new char[c.length];
+        while(i < c.length){
+            num = 0;
+            while(num < numRows && i<c.length){
+                c2[num++][count] = c[i++];
+            }
+            num--;
+            j = 0;
+            while(j++ < numRows-2 && i<c.length){
+                c2[--num][++count] = c[i++];
+            }
+            count++;
+        }
+        count = 0;
+        for( i=0; i<numRows; i++){
+            for( j=0; j<number; j++){
+                if(c2[i][j] != 0){
+                    c3[count++] = c2[i][j];
+                }
+            }
+        }
+        String str = new String(c3);
+        return str;
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        System.out.println(sol.convert("A",1));
+    }
+}
